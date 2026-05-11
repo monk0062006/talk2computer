@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "talk2computer"
+version = "0.1.0"
+description = "Local, private voice dictation for Windows — a Wispr Flow alternative"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "faster-whisper>=1.0.3",
+    "sounddevice>=0.4.7",
+    "numpy>=1.26",
+    "pynput>=1.7.7",
+    "pyperclip>=1.9.0",
+    "pystray>=0.19.5",
+    "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# NVIDIA CUDA runtime libs (~1.5 GB). Install only if you have an NVIDIA GPU
+# and want GPU-accelerated transcription. Skip this on macOS / AMD / CPU-only.
+#   pip install -e ".[cuda]"
+cuda = [
+    "nvidia-cublas-cu12",
+    "nvidia-cudnn-cu12",
+    "nvidia-cuda-nvrtc-cu12",
+]
+
+[project.scripts]
+talk2computer = "talk2computer.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
