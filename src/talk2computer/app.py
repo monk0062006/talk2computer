@@ -86,7 +86,10 @@ class App:
         try:
             self.tray.set_state("transcribing")
             text = self.transcriber.transcribe(audio)
-            log.info("transcribed: %r", text)
+            # Don't log the transcribed content — it can contain sensitive
+            # dictation (passwords, OTPs, private messages). Length is enough
+            # for debug.
+            log.info("transcribed (%d chars)", len(text))
             if text:
                 inject(
                     text,
